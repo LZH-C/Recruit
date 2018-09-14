@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lzh.mapper.OtherMapper" >
+	<resultMap id="IntentionResultMap" type="com.lzh.pojo.IntentionResult" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="worktype" property="worktype" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="deal" property="deal" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="checkstate" property="checkstate" jdbcType="INTEGER" />
+  </resultMap>
+	<resultMap id="EduResultMap" type="com.lzh.pojo.EduResult" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="begintime" property="begintime" jdbcType="DATE" />
+    <result column="endtime" property="endtime" jdbcType="DATE" />
+    <result column="Degree" property="degree" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="checkstate" property="checkstate" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="WorkResultMap" type="com.lzh.pojo.WorkResult" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="begintime" property="begintime" jdbcType="DATE" />
+    <result column="endtime" property="endtime" jdbcType="DATE" />
+    <result column="organization" property="organization" jdbcType="VARCHAR" />
+    <result column="trade" property="trade" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="synopsis" property="synopsis" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="checkstate" property="checkstate" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="DisscussResultMap" type="com.lzh.pojo.DiscussResult" >
+    <id column="did" property="did" jdbcType="INTEGER" />
+    <result column="qid" property="qid" jdbcType="INTEGER" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="checkstate" property="checkstate" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="selectIntentionResultById" resultMap="IntentionResultMap"  parameterType="java.lang.Integer">
+	select a.*,b.name from applicantintention a,applicant b where a.aid=#{aid,jdbcType=INTEGER} and a.aid=b.aid 
+  </select>
+  
+  <select id="selectIntentionResult" resultMap="IntentionResultMap" >
+	select a.*,b.name from applicantintention a,applicant b where a.aid=b.aid
+  </select>
+  
+  <select id="selectEduResultById" resultMap="EduResultMap"  parameterType="java.lang.Integer">
+	select a.*,b.name from eduexperience a,applicant b where a.aid=#{aid,jdbcType=INTEGER} and a.aid=b.aid 
+  </select>
+  
+  <select id="selectEduResult" resultMap="EduResultMap">
+	select a.*,b.name from eduexperience a,applicant b where a.aid=b.aid
+  </select>
+  
+  <select id="selectWorkResultById" resultMap="WorkResultMap"  parameterType="java.lang.Integer">
+	select a.*,b.name from workexperience a,applicant b where a.aid=#{aid,jdbcType=INTEGER} and a.aid=b.aid 
+  </select>
+  
+  <select id="selectWorkResult" resultMap="WorkResultMap" >
+	select a.*,b.name from workexperience a,applicant b where a.aid=b.aid
+  </select>
+  
+</mapper>

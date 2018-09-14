@@ -1,0 +1,55 @@
+
+	body{text-align:center} 
+	#main{
+		margin:0 auto;
+		width:800px;
+		height:800px;
+		position:relative
+	}
+	
+	#topLR{
+		position: absolute;
+		width:400px;
+		height:25px;
+		top:25px;
+		right:50px;
+	}
+	
+	#nav{
+		position: absolute;
+		width:500px;
+		height:25px;
+		font-size:25px;
+		top:50px;
+		right:80px;
+	}
+	#nav ul
+	{
+		list-style-type:none;
+		margin:0;
+		padding:0;
+		padding-top:6px;
+		padding-bottom:6px;
+	}
+	#nav li
+	{	
+		float:left;
+		display:inline;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	#nav a
+	{	
+		text-decoration:none;
+		text-align:center;
+		display:block;
+	}
+	
+	#searchbox{
+		position: absolute;
+		height:25px;
+		font-size:25px;
+		top:100px;
+		right:180px;
+	}	
+

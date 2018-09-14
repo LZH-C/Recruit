@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lzh.mapper.InterviewItemMapper" >
+  <resultMap id="InterviewItemMap" type="com.lzh.common.pojo.InterviewItem" >
+   <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="qid" property="qid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="enterprisename" property="enterprisename" jdbcType="VARCHAR" />
+    <result column="quartername" property="quartername" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="iexperience" property="iexperience" jdbcType="VARCHAR"/>
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getCollectedInterview" resultMap="InterviewItemMap"  parameterType="java.lang.Integer">
+	SELECT r.aid,r.qid,a.name,q.name as quartername from refuseresume r,applicant a,quarters q where r.qid in (select qid from quarters where eid = #{0}) and a.aid=r.aid and r.qid=q.qid limit #{1},#{2}
+  </select>
+  <select id="getInvatedToUserInterview" resultMap="InterviewItemMap"  parameterType="java.lang.Integer">
+	select i.*,a.name,e.name as enterprisename,q.name as quartername,e.contact,e.phone,e.addr,e.email from interview i,applicant a,enterprise e,quarters q where i.result='待面试' and i.aid=a.aid and i.eid=e.eid and i.qid=q.qid and i.aid=#{0} limit #{1},#{2}
+  </select>
+  <select id="getInvatedToEtInterview" resultMap="InterviewItemMap"  parameterType="java.lang.Integer">
+	select i.*,a.name,e.name as enterprisename,q.name as quartername,e.contact,e.phone,e.addr,e.email from interview i,applicant a,enterprise e,quarters q where i.result='待面试' and i.aid=a.aid and i.eid=e.eid and i.qid=q.qid and i.eid=#{0} limit #{1},#{2}
+  </select>
+  <select id="getPassToUserInterview" resultMap="InterviewItemMap"  parameterType="java.lang.Integer">
+	select i.*,a.name,e.name as enterprisename,q.name as quartername,e.contact,e.phone,e.addr,e.email from interview i,applicant a,enterprise e,quarters q where i.result='面试通过' and i.aid=a.aid and i.eid=e.eid and i.qid=q.qid and i.aid=#{0} limit #{1},#{2}
+  </select>
+  <select id="getPassToEtInterview" resultMap="InterviewItemMap"  parameterType="java.lang.Integer">
+	select i.*,a.name,e.name as enterprisename,q.name as quartername,e.contact,e.phone,e.addr,e.email from interview i,applicant a,enterprise e,quarters q where i.result='面试通过' and i.aid=a.aid and i.eid=e.eid and i.qid=q.qid and i.eid=#{0} limit #{1},#{2}
+  </select>
+  <select id="getFailToUserInterview" resultMap="InterviewItemMap"  parameterType="java.lang.Integer">
+	select i.*,a.name,e.name as enterprisename,q.name as quartername,e.contact,e.phone,e.addr,e.email from interview i,applicant a,enterprise e,quarters q where i.result='面试失败' and i.aid=a.aid and i.eid=e.eid and i.qid=q.qid and i.aid=#{0} limit #{1},#{2}
+  </select>
+  <select id="getFailToEtInterview" resultMap="InterviewItemMap"  parameterType="java.lang.Integer">
+	select i.*,a.name,e.name as enterprisename,q.name as quartername,e.contact,e.phone,e.addr,e.email from interview i,applicant a,enterprise e,quarters q where i.result='面试失败' and i.aid=a.aid and i.eid=e.eid and i.qid=q.qid and i.eid=#{0} limit #{1},#{2}
+  </select>
+  
+</mapper>

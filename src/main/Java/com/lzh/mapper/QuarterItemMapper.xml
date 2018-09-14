@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lzh.mapper.QuarterItemMapper" >
+  <resultMap id="BaseResultMap" type="com.lzh.common.pojo.quarterItem" >
+    <id column="qid" property="qid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="lsalary" property="lsalary" jdbcType="INTEGER" />
+    <result column="msalary" property="msalary" jdbcType="INTEGER" />
+    <result column="experience" property="experience" jdbcType="VARCHAR" />
+    <result column="edu" property="edu" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectQuarterItemByEId" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+	select qid,name,lsalary,msalary,experience,edu,region from quarters WHERE eid=#{0} limit #{1},#{2}
+  </select>
+  <select id="selectQuarterItem" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+	select qid,name,lsalary,msalary,experience,edu,region from quarters limit #{0},#{1}
+  </select>
+  <select id="getCountQuarter" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+    select count(*) from quarters where eid = #{0}
+  </select>
+  
+</mapper>

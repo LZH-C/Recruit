@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lzh.mapper.ResumeMapper" >
+  <resultMap id="miniresumeMap" type="com.lzh.common.pojo.Miniresume" >
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="qid" property="qid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="quartername" property="quartername" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getNotDealResumeByEid" resultMap="miniresumeMap"  parameterType="java.lang.Integer">
+	SELECT i.aid,i.qid,a.name,q.name as quartername from inresume i,applicant a,quarters q where i.qid in (select qid from quarters where eid = #{0}) and a.aid=i.aid and i.qid=q.qid limit #{1},#{2} 
+  </select>
+  <select id="getAcceptResumeByEid" resultMap="miniresumeMap"  parameterType="java.lang.Integer">
+	SELECT r.aid,r.qid,a.name,q.name as quartername from acceptresume r,applicant a,quarters q where r.qid in (select qid from quarters where eid = #{0}) and a.aid=r.aid and r.qid=q.qid limit #{1},#{2}
+  </select>
+  <select id="getRefuseResumeByEid" resultMap="miniresumeMap"  parameterType="java.lang.Integer">
+	SELECT r.aid,r.qid,a.name,q.name as quartername from refuseresume r,applicant a,quarters q where r.qid in (select qid from quarters where eid = #{0}) and a.aid=r.aid and r.qid=q.qid limit #{1},#{2}
+  </select>
+  <select id="getreadyResume" resultMap="miniresumeMap"  parameterType="java.lang.Integer">
+	SELECT r.aid,r.qid,a.name,q.name as quartername from acceptresume r,applicant a,quarters q,interview i where r.qid in (select qid from quarters where eid = #{0}) and a.aid=r.aid and r.qid=q.qid and i.qid=r.qid and i.result="待面试" limit #{1},#{2}
+  </select>
+  <select id="getDealResumeToOk" resultMap="miniresumeMap"  parameterType="java.lang.Integer">
+	SELECT r.aid,r.qid,a.name,q.name as quartername from acceptresume r,applicant a,quarters q,interview i where r.qid in (select qid from quarters where eid = #{0}) and a.aid=r.aid and r.qid=q.qid and i.qid=r.qid and i.result="面试通过" limit #{1},#{2}
+  </select>
+  <select id="getDealResumeToFail" resultMap="miniresumeMap"  parameterType="java.lang.Integer">
+	SELECT r.aid,r.qid,a.name,q.name as quartername from acceptresume r,applicant a,quarters q,interview i where r.qid in (select qid from quarters where eid = #{0}) and a.aid=r.aid and r.qid=q.qid and i.qid=r.qid and i.result="面试失败" limit #{1},#{2}
+  </select>
+  <select id="getCountResume" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+    select count(*) from inresume where qid in (select qid from quarters where eid = #{0})
+  </select>
+  <select id="getAllCountResume" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+	select ( (select count(*) from inresume where qid in (select qid from quarters where eid = #{0}))+(select count(*) from acceptresume where qid in (select qid from quarters where eid = #{0}))+(select count(*) from refuseresume where qid in (select qid from quarters where eid = #{0})) )as count  
+  </select>
+</mapper>

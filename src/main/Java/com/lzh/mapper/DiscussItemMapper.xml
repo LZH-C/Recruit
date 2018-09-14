@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lzh.mapper.DiscussItemMapper" >
+  <resultMap id="DiscussTopicItem" type="com.lzh.pojo.DiscussResult" >
+    <result column="id" property="did" jdbcType="INTEGER" />
+    <result column="qid" property="qid" jdbcType="INTEGER" />
+    <result column="userid" property="id" jdbcType="INTEGER" />
+    <result column="content" property="msg" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="checkstate" property="checkstate" jdbcType="INTEGER" />
+    <result column="username" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="DiscussSecondItem" type="com.lzh.mapper.DiscussItemMapper" >
+    <result column="id" property="did" jdbcType="INTEGER" />
+    <result column="did" property="qid" jdbcType="INTEGER" />
+    <result column="userid" property="id" jdbcType="INTEGER" />
+    <result column="content" property="msg" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="checkstate" property="checkstate" jdbcType="INTEGER" />
+    <result column="username" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getDiscussTopicMsgByApplicant" resultMap="DiscussTopicItem" >
+	select d.*,a.name as username from discusstopic d,applicant a where d.userid=a.aid ORDER BY time asc
+  </select>
+  <select id="getDiscussTopicMsgByEnterprise" resultMap="DiscussTopicItem" >
+	select d.*,e.name as username from discusstopic d,enterprise e where d.userid=e.eid ORDER BY time asc
+  </select>
+  <select id="getDiscussSecondMsgByApplicant" resultMap="DiscussSecondItem">
+	select d.*,a.name as username from discusssecond d,applicant a where d.userid=a.aid ORDER BY time asc
+  </select>
+  <select id="getDiscussSecondMsgByEnterprise" resultMap="DiscussSecondItem">
+	select d.*,e.name as username from discusssecond d,enterprise e where d.userid=e.eid ORDER BY time asc
+  </select>
+  
+  <select id="getDiscussTopicMsgByApplicant1" resultMap="DiscussTopicItem" parameterType="java.lang.Integer">
+	select d.*,a.name as username from discusstopic d,applicant a where d.id=#{0} and  d.userid=a.aid ORDER BY time asc
+  </select>
+  <select id="getDiscussTopicMsgByEnterprise1" resultMap="DiscussTopicItem" parameterType="java.lang.Integer">
+	select d.*,e.name as username from discusstopic d,enterprise e where d.id=#{0} and d.userid=e.eid ORDER BY time asc
+  </select>
+  <select id="getDiscussSecondMsgByApplicant1" resultMap="DiscussSecondItem" parameterType="java.lang.Integer">
+	select d.*,a.name as username from discusssecond d,applicant a where d.id=#{0} and d.userid=a.aid ORDER BY time asc
+  </select>
+  <select id="getDiscussSecondMsgByEnterprise1" resultMap="DiscussSecondItem" parameterType="java.lang.Integer">
+	select d.*,e.name as username from discusssecond d,enterprise e where d.id=#{0} and d.userid=e.eid ORDER BY time asc
+  </select>
+  
+</mapper>
